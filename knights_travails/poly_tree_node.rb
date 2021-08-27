@@ -46,6 +46,10 @@ class PolyTreeNode
         return nil 
     end
 
+    def inspect
+        { value: value, children: children.map{ |node| node.value} }.inspect
+    end
+
 end
 
 # class Searchable

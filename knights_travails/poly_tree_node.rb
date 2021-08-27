@@ -34,11 +34,14 @@ class PolyTreeNode
     end
 
     def bfs(target_value)
-        arr = [self]
+        arr = []
+        arr.push(self)
         until arr.empty?
-            node = arr.shift
-            return node if node.value == target_value
-            arr += node.children
+            el = arr.shift
+            return el if el.value == target_value
+            el.children.each do |child|
+                arr.push(child)
+            end
         end
         return nil 
     end

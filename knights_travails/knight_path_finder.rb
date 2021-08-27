@@ -17,11 +17,22 @@ class KnightPathFinder
     end
 
     def new_move_positions(pos)
-        moves = self.valid_moves(pos)
+        moves = KnightPathFinder.valid_moves(pos)
         moves.each do |move|
             moves.delete(move) if @considered_positions.include?(move)
         end
         @considered_positions += moves
         return moves
     end
+
+    def build_move_tree(target_position)
+        tree = PolyTreeNode.new([@starting_position])
+        new_move_positions(tree.value[-1]).each do |move|
+            new_child = PolyTreeNode.new(tree.value + [move])
+            tree.add_child(new_child)
+        end
+
+    end
+
+
 end

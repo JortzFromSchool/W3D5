@@ -1,3 +1,5 @@
+require "byebug"
+
 require_relative "poly_tree_node.rb"
 class KnightPathFinder
     def initialize(starting_position)
@@ -18,11 +20,12 @@ class KnightPathFinder
 
     def new_move_positions(pos)
         moves = KnightPathFinder.valid_moves(pos)
+        confirmed_moves = []
         moves.each do |move|
-            moves.delete(move) if @considered_positions.include?(move)
+            confirmed_moves << move unless @considered_positions.include?(move)
         end
-        @considered_positions += moves
-        return moves
+        @considered_positions += confirmed_moves
+        return confirmed_moves
     end
 
     def build_move_tree()
@@ -30,7 +33,7 @@ class KnightPathFinder
         arr = [tree]
         until arr.empty?
             node = arr.shift
-            #return node if node.value == target_position
+
             new_move_positions(node.value).each do |move|
                 new_child = PolyTreeNode.new(move)
                 node.add_child(new_child)
@@ -39,11 +42,4 @@ class KnightPathFinder
         end
         tree
     end
-## input [0,0] --> [3,3]
-## tree.value == [[0,0]] start
-## child.value == tree.value + [move] == [[0,0], [1,2]]
-## target value == child.value[-1]
-## return child.value
-## input [0,0] --> [[0,0] , [1,2] , [3,3]]
-
 end

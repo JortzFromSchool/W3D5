@@ -20,7 +20,35 @@ class PolyTreeNode
     end
 
     def remove_child(node)
+        raise "not a child node" unless self.children.include?(node)
         node.parent = nil
-        raise "not a child node" unless node.parent.include?(node)
     end
+
+    def dfs(target_value)
+        return self if self.value == target_value
+        self.children.each do |child|
+            var = child.dfs(target_value) 
+            return var unless var == nil
+        end
+        return nil
+    end
+
+    def bfs(target_value)
+        arr = []
+        arr.push(self)
+        until arr.empty?
+            el = arr.shift
+            return el if el.value == target_value
+            el.children.each do |child|
+                arr.push(child)
+            end
+        end
+        return nil 
+    end
+
 end
+
+# class Searchable
+
+    
+# end

@@ -25,19 +25,25 @@ class KnightPathFinder
         return moves
     end
 
-    def build_move_tree(target_position)
+    def build_move_tree()
         tree = PolyTreeNode.new(@starting_position)
         arr = [tree]
         until arr.empty?
             node = arr.shift
-            return node if node.value == target_position
+            #return node if node.value == target_position
             new_move_positions(node.value).each do |move|
                 new_child = PolyTreeNode.new(move)
                 node.add_child(new_child)
             end
             arr += node.children
         end
+        tree
     end
-
+## input [0,0] --> [3,3]
+## tree.value == [[0,0]] start
+## child.value == tree.value + [move] == [[0,0], [1,2]]
+## target value == child.value[-1]
+## return child.value
+## input [0,0] --> [[0,0] , [1,2] , [3,3]]
 
 end

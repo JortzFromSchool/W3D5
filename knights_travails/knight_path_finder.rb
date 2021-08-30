@@ -49,11 +49,13 @@ class KnightPathFinder
     end
 
     def trace_path_back(node)
+        curr_node = node
         nodes = []
-        curr_pos = node.value
-        until curr_pos == nil
+        curr_pos = curr_node.value
+        until curr_node == nil
             nodes.unshift(curr_pos)
-            curr_pos = node.parent.value
+            curr_node = curr_node.parent
+            curr_pos = curr_node.value unless curr_node == nil
         end
         return nodes
     end
